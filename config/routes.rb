@@ -1,7 +1,12 @@
 Maple::Application.routes.draw do
   # get "users/show"
 
-  # get "users/index"
+
+  get "users/index"
+  get "users/check_mobile_login"
+
+  get "about/index"
+  get "posts/index"
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
@@ -15,6 +20,8 @@ Maple::Application.routes.draw do
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
+
+  resources :posts
 
   resources :users do
     resources :posts
