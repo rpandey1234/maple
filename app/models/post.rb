@@ -16,8 +16,22 @@ class Post < ActiveRecord::Base
     image.url(:medium)
   end
 
+  def profile_image
+    if self.user_id
+      return "http://graph.facebook.com/" + self.user.uid + "/picture"
+    else
+      return "http://graph.facebook.com/picture"
+    end
+  end
+
   def total_votes
     self.votes_for
+  end
+
+  def time_since
+    puts "Time Since"
+    puts self.created_at
+    distance_of_time_in_words_to_now(self.created_at)
   end
 
   def user_has_voted
@@ -34,4 +48,5 @@ class Post < ActiveRecord::Base
     options[:page] ||= 1
     Post.paginate(:page => options[:page], :per_page => 30)
   end
+
 end

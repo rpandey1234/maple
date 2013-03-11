@@ -11,15 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130311075840) do
+ActiveRecord::Schema.define(:version => 20130311094535) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
-    t.integer  "company_id"
     t.string   "email",                :default => "", :null => false
-    t.string   "encrypted_password",   :default => "", :null => false
+    t.string   "password",             :default => "", :null => false
     t.string   "authentication_token"
     t.integer  "sign_in_count",        :default => 0
     t.datetime "current_sign_in_at"
@@ -59,11 +58,11 @@ ActiveRecord::Schema.define(:version => 20130311075840) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.string   "type"
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
     t.string   "authentication_token"
+    t.string   "type"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
