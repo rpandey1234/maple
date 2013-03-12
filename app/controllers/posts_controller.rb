@@ -29,6 +29,10 @@ class PostsController < ApplicationController
 
   end
 
+  def all
+    @posts = Post.paged_posts
+  end
+
   def index
     if company_signed_in?
       # If a company is signed in, render company specific view
@@ -42,10 +46,6 @@ class PostsController < ApplicationController
       # Just render normal view
       @posts = Post.paged_posts
 
-      respond_to do |format|
-        format.html
-        format.json { render :json => @posts.to_json({:include => {:user => { :only => [:uid, :email, :name] }, :company => { :only => :name} }, :methods => [:image_url, :total_votes, :profile_image]}).html_safe }
-      end
     end
   end
 
@@ -55,11 +55,11 @@ class PostsController < ApplicationController
   end
 
   def vote_up
-    if user_signed_in?
-      post = Post.find_by_id(params[:post_id])
-      user = User.find_by_id(current_user.id)
 
-      user.vote_for(post)
-    end
+    post = Post.find_by_id(params[:post_id])
+
+    current_user.vote_for(post)
+
+    render :json => post
   end
 end
